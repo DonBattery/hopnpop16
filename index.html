@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hop'n'Pop 16</title>
+    <link
+        href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA6PH/AKrM/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARABEAAAAAABEAEQAAAAAAERERAAAAAAAREREAAAAAABEREQAAAAAAERERAAAAEREREREREQARERERERERABERABERABEAEREAEREAEQAAEREREREAAAAREREREQAAABEiACIRAAAAESIAIhEAAAARIgAiEQAAABEiACIRAADzPwAA8z8AAPA/AADwPwAA8D8AAPA/AAAAAwAAAAMAAAADAAAAAwAAwA8AAMAPAADDDwAAww8AAMMPAADDDwAA"
+        rel="icon" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 100vh;
+            background-color: #121212;
+            color: #e0e0e0;
+            overflow-y: hidden;
+            /* Prevents scrolling */
+        }
+
+        /* Add a bit of a retro feel */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(0deg,
+                    rgba(0, 0, 0, 0.15),
+                    rgba(0, 0, 0, 0.15) 1px,
+                    transparent 1px,
+                    transparent 2px);
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .content {
+            padding: 20px;
+            padding-top: 5vh;
+            margin: 0 auto;
+            max-width: 800px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-family: "Press Start 2P", system-ui;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #29adff;
+        }
+
+        h3 {
+            font-family: "Press Start 2P", system-ui;
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-weight: normal;
+            color: #83769c;
+        }
+
+        .gif-container {
+            margin: 0 auto;
+            max-width: 512px;
+            width: 100%;
+        }
+
+        .gif-container img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1/1;
+            object-fit: contain;
+        }
+
+        .press-start-2p-regular {
+            font-family: "Press Start 2P", system-ui;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @media (max-width: 600px) {
+            .content {
+                padding-top: 3vh;
+                /* Even less top padding on mobile */
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 432px) {
+            .content {
+                padding-top: 1vh;
+                /* Even less top padding on smaller mobile */
+            }
+
+            h1 {
+                font-size: 1.2rem;
+            }
+
+            h3 {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <h1>HOP'N'POP 16</h1>
+        <h3>COMING SOON...</h3>
+        <div class="gif-container">
+            <img src="assets\img\hopnpop16_color_schemes_512.gif" alt="Hop'n'Pop Animated GIF">
+        </div>
+    </div>
+</body>
+
+</html>
