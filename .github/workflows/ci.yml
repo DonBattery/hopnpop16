@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '**' # all branches
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+
+      - name: Build CLI
+        working-directory: ./src/server
+        run: go build -v .
+        
+      - name: Run tests
+        working-directory: ./src/server
+        run: go test -v ./...

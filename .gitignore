@@ -1,0 +1,6 @@
+# my magic tree
+print-tree.ps1
+
+# executables
+*.exe
+/bin
