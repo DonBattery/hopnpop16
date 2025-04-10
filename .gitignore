@@ -4,3 +4,6 @@ print-tree.ps1
 # executables
 *.exe
 /bin
+
+# conversations with AIs
+/prompt

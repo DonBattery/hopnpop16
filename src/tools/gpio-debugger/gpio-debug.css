@@ -1,0 +1,359 @@
+:root {
+    /* Base settings */
+    --gpio-base-font-size: 16px;
+    --gpio-font-family: monospace;
+
+    /* Color palette */
+    --gpio-color-bg: #111;
+    --gpio-color-border: #555;
+    --gpio-color-text-dim: #888;
+    --gpio-color-cell-bg: #222;
+    --gpio-color-cell-border: #333;
+
+    /* Primary color variants */
+    --gpio-color-primary: #0f0;
+    --gpio-color-primary-dim: #090;
+    --gpio-color-primary-bg: #060;
+    --gpio-color-primary-bg-dim: #030;
+
+    /* Danger/error colors */
+    --gpio-color-danger: #f88;
+    --gpio-color-danger-dim: #900;
+    --gpio-color-danger-bg: #600;
+
+    --gpio-color-danger-hoover: #f0d8d3;
+
+    /* Transition timing */
+    --gpio-transition-time: 0.3s;
+
+    /* Header heights */
+    --gpio-header-height: 2.5em;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1024px) {
+    :root {
+        --gpio-base-font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    :root {
+        --gpio-base-font-size: 12px;
+        /* Increase header height for smaller screens to accommodate wrapping */
+        --gpio-header-height: 3.5em;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    :root {
+        /* Further increase header height for even smaller screens */
+        --gpio-header-height: 4.5em;
+    }
+}
+
+/* Main container */
+#gpio-debug {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gpio-color-bg);
+    opacity: 0.8;
+    color: var(--gpio-color-primary);
+    font-family: var(--gpio-font-family);
+    font-size: var(--gpio-base-font-size);
+    z-index: 9999;
+    transition: transform var(--gpio-transition-time) ease-in-out;
+}
+
+#gpio-debug.closed {
+    transform: translateY(calc(100% - var(--gpio-header-height)));
+    color: var(--gpio-color-primary-dim);
+}
+
+#gpio-toggle-btn {
+    background: var(--gpio-color-primary-bg);
+    border: 1px solid var(--gpio-color-border);
+    color: var(--gpio-color-primary);
+    font-size: 1.4em;
+    padding: 0.25em 0.4em;
+    cursor: pointer;
+    position: absolute;
+    top: 0.25em;
+    left: 0.25em;
+    z-index: 10;
+}
+
+#gpio-debug.closed #gpio-toggle-btn {
+    background: var(--gpio-color-primary-bg-dim);
+    color: var(--gpio-color-primary-dim);
+}
+
+/* Action buttons */
+#gpio-actions {
+    position: absolute;
+    left: 6em;
+    top: 0.5em;
+    font-size: 1.25em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    transition: opacity var(--gpio-transition-time);
+    max-width: calc(100% - 7em);
+    /* Give some space from the left edge */
+}
+
+#gpio-debug.closed #gpio-actions {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.gpio-action-btn {
+    background: var(--gpio-color-danger-bg);
+    border: 1px solid var(--gpio-color-danger-dim);
+    color: var(--gpio-color-danger);
+    font-size: 0.8em;
+    padding: 0.25em 0.5em;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.gpio-action-btn:hover {
+    background: var(--gpio-color-danger-dim);
+    color: var(--gpio-color-danger-hoover);
+}
+
+.gpio-action-btn:active {
+    transform: scale(0.95);
+}
+
+.gpio-action-btn.frame-btn {
+    background: var(--gpio-color-primary-bg);
+    border: 1px solid var(--gpio-color-border);
+    color: var(--gpio-color-primary);
+}
+
+.gpio-action-btn.frame-btn:hover {
+    background: var(--gpio-color-primary-bg-dim);
+    color: var(--gpio-color-primary);
+}
+
+/* Panel title (shown when collapsed) */
+#gpio-panel-title {
+    position: absolute;
+    left: 6em;
+    top: 0.5em;
+    font-size: 1.25em;
+    color: var(--gpio-color-text-dim);
+    transition: opacity var(--gpio-transition-time);
+    opacity: 0;
+    pointer-events: none;
+}
+
+#gpio-debug.closed #gpio-panel-title {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Content area */
+#gpio-content {
+    padding-top: var(--gpio-header-height);
+    padding-bottom: 0.5em;
+    overflow-y: auto;
+}
+
+.label {
+    color: var(--gpio-color-text-dim);
+    font-size: 1.125em;
+    margin: 0.25em 0.5em 0.125em;
+    display: block;
+}
+
+/* Bitfield displays */
+#bitfields {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.25em 0.5em;
+}
+
+.bitfield {
+    display: flex;
+    justify-content: space-evenly;
+    flex: 1;
+    gap: 0.25em;
+}
+
+.bit {
+    flex: 1;
+    max-width: 1.5em;
+    aspect-ratio: 1;
+    background: var(--gpio-color-bg);
+    border: 1px solid var(--gpio-color-cell-border);
+    border-radius: 2px;
+}
+
+.bit.on {
+    background: var(--gpio-color-primary);
+}
+
+/* Main GPIO grid */
+#gpio-grid {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    gap: 0.25em;
+    font-size: 1em;
+    text-align: center;
+    padding: 0 0.5em;
+}
+
+.gpio-cell {
+    padding: 0.125em 0.25em;
+    background: var(--gpio-color-cell-bg);
+    border: 1px solid var(--gpio-color-cell-border);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+}
+
+.gpio-cell[data-value="0"] {
+    color: var(--gpio-color-primary-bg);
+}
+
+/* Editor popup */
+.gpio-editor {
+    position: absolute;
+    background: var(--gpio-color-bg);
+    border: 1px solid var(--gpio-color-primary);
+    padding: 0.5em;
+    font-size: 1em;
+    font-family: var(--gpio-font-family);
+    color: var(--gpio-color-primary);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25em;
+}
+
+.gpio-editor .memory-address {
+    color: var(--gpio-color-primary-dim);
+    font-size: 1em;
+    margin-bottom: 0.125em;
+    text-align: center;
+    width: 100%;
+}
+
+.gpio-editor .input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.25em;
+}
+
+.gpio-editor input[type="number"] {
+    width: 3.75em;
+    background: var(--gpio-color-bg);
+    color: var(--gpio-color-primary);
+    border: 1px solid var(--gpio-color-border);
+    text-align: center;
+    font-size: 1em;
+}
+
+.gpio-editor button {
+    background: var(--gpio-color-primary-bg);
+    border: 1px solid var(--gpio-color-primary-dim);
+    color: var(--gpio-color-primary);
+    font-size: 0.75em;
+    padding: 0.125em 0.375em;
+    cursor: pointer;
+    margin: 0 0.125em;
+}
+
+.gpio-editor button.clear-btn {
+    background: var(--gpio-color-danger-bg);
+    border: 1px solid var(--gpio-color-danger-dim);
+    color: var(--gpio-color-danger);
+}
+
+.gpio-bitfield {
+    display: flex;
+    gap: 0.125em;
+}
+
+.gpio-bit-toggle {
+    width: 1em;
+    height: 1em;
+    background: var(--gpio-color-bg);
+    border: 1px solid var(--gpio-color-primary);
+    cursor: pointer;
+}
+
+.gpio-bit-toggle.on {
+    background: var(--gpio-color-primary);
+}
+
+/* Tooltip */
+.gpio-tooltip {
+    position: absolute;
+    background: var(--gpio-color-bg);
+    border: 1px solid var(--gpio-color-primary);
+    padding: 0.25em 0.5em;
+    font-size: 0.75em;
+    color: var(--gpio-color-primary);
+    z-index: 9999;
+    pointer-events: none;
+    display: none;
+    white-space: pre-line;
+}
+
+.gpio-tooltip .tooltip-bitfield {
+    display: flex;
+    gap: 0.125em;
+    margin-top: 0.125em;
+}
+
+.gpio-tooltip .tooltip-bit {
+    width: 0.75em;
+    height: 0.75em;
+    background: var(--gpio-color-bg);
+    border: 1px solid var(--gpio-color-primary);
+}
+
+.gpio-tooltip .tooltip-bit.on {
+    background: var(--gpio-color-primary);
+}
+
+/* Frame selector */
+.frame-selector {
+    position: absolute;
+    background: var(--gpio-color-bg);
+    border: 1px solid var(--gpio-color-primary);
+    color: var(--gpio-color-primary);
+    font-family: var(--gpio-font-family);
+    font-size: 1em;
+    padding: 0.5em;
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.frame-selector input {
+    width: 4em;
+    background: var(--gpio-color-bg);
+    color: var(--gpio-color-primary);
+    border: 1px solid var(--gpio-color-border);
+    text-align: center;
+    font-size: 1em;
+    padding: 0.1em 0.25em;
+}
+
+.frame-selector button {
+    background: var(--gpio-color-primary-bg);
+    border: 1px solid var(--gpio-color-primary-dim);
+    color: var(--gpio-color-primary);
+    font-size: 0.9em;
+    padding: 0.25em 0.5em;
+    cursor: pointer;
+}
