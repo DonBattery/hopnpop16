@@ -1,0 +1,1 @@
+# This protocol file describes the binary protocol used by Pico-8 JavaScript and the Golang server to talks to each other via WebSockets.

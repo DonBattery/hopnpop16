@@ -79,16 +79,40 @@ An **online multiplayer platformer** where players control characters in a **256
 | `model`     | All domain structs: Player, Room, World, Event, etc. |
 | `static`    | Admin interface (Canvas-based room viewer) |
 
-### 🔌 Protocol Design (Current Direction)
+---
 
-- Uses Pico-8 GPIO to send/receive binary data
-- Fixed-size frame: 128 bytes (2 from client, 126 from server)
-- Client sends input (2 bytes), server sends full state every frame
-- Protocol defined via **YAML config** that:
-  - Supports multiple protocol versions
-  - Defines input/output sections
-  - Used by Go server + JS client
-- A CLI tool can `validate` and `generate` code from protocol definition
+## 🔌 Protocol System: **Binmark** (binary protocol markup)
+
+The game protocol is defined in a versioned YAML format called **Binmark**. It supports a full lifecycle of parsing, validation, code generation, and runtime use.
+
+### Features
+
+- ✏️ **Single source of truth** for protocol layout
+- 🌐 Used by both **Go server** and **JS/Pico-8 clients**
+- ⚛️ YAML defines:
+  - `version`
+  - `input` layout (1–2 bytes from client)
+  - `output` layout (126 bytes from server)
+  - `sections` and `bitfields`
+- ⚖️ Validated for alignment, overflow, and repeat structures
+
+### Extensible Toolchain
+
+The Go server is also a **protocol toolchain**:
+
+| Mode         | Output |
+|--------------|--------|
+| `server`     | Initializes runtime middleware from YAML |
+| `proto gen`  | Generates `.p8` file for Pico-8 projects |
+|              | Generates `.js` + `.css` files for web frontend |
+|              | Patches or inlines JS/CSS into `index.html` |
+
+### Future-Proof Design
+
+- Multiple protocol versions can coexist
+- Pluggable renderers for future languages or formats
+- Site ↔ Pico initial protocol distinct from game runtime protocol
+- Enables debug panels, version negotiation, and hot-swapping
 
 ---
 
@@ -134,7 +158,7 @@ An **online multiplayer platformer** where players control characters in a **256
 
 ---
 
-## 🧱 Next Steps
+## Next Steps
 
 - Flesh out protocol YAML schema and Go loader
 - Implement WebSocket broadcast loop
@@ -145,4 +169,4 @@ An **online multiplayer platformer** where players control characters in a **256
 
 ---
 
-This plan is just the beginning — welcome to **HOP 'N POP 16**! 🐰💥
+This plan is just the beginning — welcome to **HOP 'N POP 16**! 🐰
