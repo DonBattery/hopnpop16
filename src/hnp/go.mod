@@ -1,4 +1,4 @@
-module server
+module hnp
 
 go 1.21.6
 
