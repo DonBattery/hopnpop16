@@ -20,9 +20,9 @@ jobs:
           go-version: '1.21'
 
       - name: Build CLI
-        working-directory: ./src/server
+        working-directory: ./src/hnp
         run: go build -v .
         
       - name: Run tests
-        working-directory: ./src/server
+        working-directory: ./src/hnp
         run: go test -v ./...

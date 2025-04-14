@@ -29,12 +29,12 @@ jobs:
           go-version: '1.21'
 
       - name: Build Release Binary
-        working-directory: ./src/server
+        working-directory: ./src/hnp
         run: |
-          go build -ldflags="-X main.VERSION=${{ steps.version.outputs.VERSION }} -X main.BUILD=${{ github.sha }}" -o hopnpop16 .
+          go build -ldflags="-X main.VERSION=${{ steps.version.outputs.VERSION }} -X main.BUILD=${{ github.sha }}" .
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: hopnpop16-linux
-          path: ./src/server/hopnpop16 
+          path: ./src/hnp/hnp
