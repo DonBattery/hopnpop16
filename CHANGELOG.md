@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Golang based World Runner with Lua VM
 - Fengari JS based server UI with Lua VM
 
+### Changed
+
+- Updated README.md with relevant links
+
 ## [0.0.1] - 2025-04-14
 
 ### Added
